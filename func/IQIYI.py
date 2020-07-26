@@ -165,8 +165,6 @@ class IQY:
         return msg
 
 
-
-
 if __name__ == '__main__':
     P00001 = ""
     # 签到
