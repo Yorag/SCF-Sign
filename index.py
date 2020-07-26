@@ -21,8 +21,7 @@ def sendMsg(key, content):
     '''
     url = f"https://qmsg.zendee.cn:443/send/{key}"
     params = {
-        "msg": content,
-        "qq": "1904783330"
+        "msg": content
     }
     res = requests.get(url, params=params)
     print(res.json())
