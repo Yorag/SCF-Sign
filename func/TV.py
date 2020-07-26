@@ -83,17 +83,17 @@ class TV:
 
 if __name__ == '__main__':
     cookies = {
-        'vqq_access_token': '4C543E4B5BE7954C92FA6FC3588EBE82',
-        'vqq_openid': 'E8B6F81FD949AF335BFA1657477B52DF',
+        'vqq_access_token': '',
+        'vqq_openid': '',
         'main_login': 'qq',
-        'vqq_vuserid': '719930041',
-        'vqq_vusession': 'gvoA55ooFxdEmJam0VKl5A..'
+        'vqq_vuserid': '',
+        'vqq_vusession': ''
     }
     params = {
-        'vappid': '11059694', 
-        'vsecret': 'fdf61a6be0aad57132bc5cdf78ac30145b6cd2c1470b0cfe', 
+        'vappid': '', 
+        'vsecret': '', 
         'type': 'qq', 
-        'g_actk': '150450282'
+        'g_actk': ''
     }
     obj = TV(cookies, params)
     obj.auth_refresh()
