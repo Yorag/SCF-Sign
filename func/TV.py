@@ -97,6 +97,5 @@ if __name__ == '__main__':
     }
     obj = TV(cookies, params)
     obj.auth_refresh()
-    # msg = f"用户：{obj.nickName}\n签到(1)：{obj.sign_once()}\n签到(2)：{obj.sign_twice()}"
-    # print("【腾讯视频签到】", msg)
-    obj.sign_once()
+    msg = f"用户：{obj.nickName}\n签到(1)：{obj.sign_once()}\n签到(2)：{obj.sign_twice()}"
+    print("【腾讯视频签到】", msg)
