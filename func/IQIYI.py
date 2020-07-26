@@ -168,7 +168,7 @@ class IQY:
 
 
 if __name__ == '__main__':
-    P00001 = "050QQuRZm2jpu0W3g9UVCm1RjFxQQwibBQBM6PtPN8fZvPtLsuQm1w9fckdm35m3duzZozyd4"
+    P00001 = ""
     # 签到
     obj = IQY(P00001)
     msg1 = obj.sign()
