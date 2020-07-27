@@ -187,8 +187,8 @@ class WangYiYun():
 
 
 if __name__ == '__main__':
-    cell = "18736300609"
-    pwd = "a787125293"
+    cell = ""
+    pwd = ""
 
     obj = WangYiYun()
     if obj.login(cell, pwd):

@@ -41,8 +41,8 @@ class MGTV:
 
 if __name__ == '__main__':
     params = {
-        "uuid": "bd86ab29595d4a0292068af3b0b35e8a",
-        "ticket": "BS6L3HDQ6DI6LUD2PFF0",
+        "uuid": "",
+        "ticket": "",
         "type": 1
     }
     obj = MGTV(params)
