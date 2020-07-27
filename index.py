@@ -31,18 +31,22 @@ def iqy(P00001, P00003):
     # 签到
     obj = IQY(P00001, P00003)
     msg1 = obj.sign()
+
     # 抽奖
-    msg2 = ""
     chance = obj.draw(0)["chance"]
-    for i in range(chance):
-        ret = obj.draw(1)
-        if ret["status"]:
-            msg2 += ret["msg"] + ";"
+    if chance:
+        msg2 = ""
+        for i in range(chance):
+            ret = obj.draw(1)
+            msg2 += ret["msg"]+";" if ret["status"] else ""
+    else:
+        msg2 = "抽奖机会不足"
+
     # 日常任务
     obj.queryTask().joinTask()
     msg3 = obj.queryTask().getReward()
 
-    msg = f"{msg1}\n抽奖：{msg2}\n任务：{msg3}"
+    msg = f"【爱奇艺签到】\n签到：{msg1}\n抽奖：{msg2}\n任务：{msg3}"
     return msg
 
 
