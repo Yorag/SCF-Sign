@@ -14,7 +14,8 @@
     ],
     "MGO": [
         {
-            "params": "uuid={}&ticket={}&type=1"
+            "uuid": "",
+            "ticket": ""
         }
     ],
     "WYY": [
