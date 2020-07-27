@@ -26,7 +26,7 @@ def sendMsg(key, content):
     print(res.json())
 
 
-def iqy(P00001):
+def iqy(P00001, P00003):
     '''爱奇艺引用'''
     # 签到
     obj = IQY(P00001, P00003)
