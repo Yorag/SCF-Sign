@@ -161,6 +161,3 @@ def main_handler(event, context):
 【网易云】\n{msg_wyy}"
     sendMsg(key, msg)
     return msg
-
-
-main_handler(1,1)
