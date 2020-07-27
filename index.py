@@ -1,5 +1,4 @@
 # -*- coding: utf8 -*-
-import time
 import json
 import requests
 
@@ -30,12 +29,13 @@ def sendMsg(key, content):
 def iqy(P00001):
     '''爱奇艺引用'''
     # 签到
-    obj = IQY(P00001)
+    obj = IQY(P00001, P00003)
     msg1 = obj.sign()
     # 抽奖
     msg2 = ""
-    for i in range(3):
-        ret = obj.draw()
+    chance = obj.draw(0)["chance"]
+    for i in range(chance):
+        ret = obj.draw(1)
         if ret["status"]:
             msg2 += ret["msg"] + ";"
     # 日常任务
@@ -107,7 +107,7 @@ def main_handler(event, context):
     # 爱奇艺
     msg_iqy = ""
     for d in data["IQIYI"]:
-        msg_iqy += iqy(d["P00001"])
+        msg_iqy += iqy(d["P00001"], d["P00003"])
 
     # 腾讯视频
     msg_tv = ""
@@ -161,3 +161,6 @@ def main_handler(event, context):
 【网易云】\n{msg_wyy}"
     sendMsg(key, msg)
     return msg
+
+
+main_handler(1,1)
