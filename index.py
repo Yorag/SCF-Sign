@@ -54,10 +54,10 @@ def tv(cookies, params):
     return msg
 
 
-def mg(params):
+def mg(uuid, ticket):
     '''芒果tv引用'''
-    obj = MGTV(params)
-    msg = obj.sign()
+    obj = MGTV(uuid, ticket)
+    msg = f"签到(1)：{obj.sign_app()}\n签到(2)：{obj.sign_web()}\n任务：{obj.task()}"
     return msg
 
 
@@ -119,8 +119,7 @@ def main_handler(event, context):
     # 芒果tv
     msg_mg = ""
     for d in data["MGO"]:
-        params = dict([p.split("=") for p in d["params"].split("&")])
-        msg_mg += mg(params)
+        msg_mg += mg(d["uuid"], d["ticket"])
 
     # 天翼云盘
     msg_ec = ""
@@ -153,7 +152,7 @@ def main_handler(event, context):
     # 发送信息
     msg = f"【爱奇艺】\n{msg_iqy}\n\
 【腾讯视频】\n{msg_tv}\n\
-【芒果tv】\n{msg_mg}\n\
+【芒果TV】\n{msg_mg}\n\
 【天翼云盘】\n{msg_ec}\n\
 【吾爱破解】\n{msg_52}\n\
 【乐易】\n{msg_ly}\n\
