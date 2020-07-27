@@ -5,7 +5,7 @@ import requests
 
 class IQY:
     '''
-    爱奇艺签到、抽奖
+    爱奇艺签到、抽奖、做任务(签到、任务仅限VIP)
     *奖励：签7天奖1天，14天奖2天，28天奖7天；日常任务；随机成长值
     '''
     def __init__(self, P00001, psp_uid):
@@ -22,7 +22,7 @@ class IQY:
 
     def sign(self):
         '''
-        签到
+        VIP签到
         '''
         url = "https://tc.vip.iqiyi.com/taskCenter/task/queryUserTask"
         params = {
@@ -30,12 +30,16 @@ class IQY:
              "autoSign": "yes"
         }
         res = requests.get(url, params=params)
+        print("（iqy）签到信息", res.json())
         if res.json()["code"] == "A00000":
-            growth = res.json()["data"]["signInfo"]["data"]["rewardMap"]["growth"]
-            continueSignDaysSum = res.json()["data"]["signInfo"]["data"]["continueSignDaysSum"]
-            vipStatus = res.json()["data"]["userInfo"]["vipStatus"]
-            rewardDay = 7 if continueSignDaysSum<=7 else (14 if continueSignDaysSum<=14 else 28)
-            msg = f"VIP等级：{vipStatus}\n签到：+{growth}成长值\n已签到：{continueSignDaysSum}天/{rewardDay}天"
+            try:
+                growth = res.json()["data"]["signInfo"]["data"]["rewardMap"]["growth"]
+                continueSignDaysSum = res.json()["data"]["signInfo"]["data"]["continueSignDaysSum"]
+                vipStatus = res.json()["data"]["userInfo"]["vipStatus"]
+                rewardDay = 7 if continueSignDaysSum<=7 else (14 if continueSignDaysSum<=14 else 28)
+                msg = f"VIP等级：{vipStatus}\n签到：+{growth}成长值\n已签到：{continueSignDaysSum}天/{rewardDay}天"
+            except:
+                msg = res.json()["data"]["signInfo"]["msg"]
         else:
             print("（iqy）签到错误", res.content.decode())
             msg = f'错误代码：{res.json()["code"]}\n信息：{res.json()["msg"]}'
@@ -44,7 +48,7 @@ class IQY:
 
     def queryTask(self):
         '''
-        获取日常任务 和 taskCode
+        获取VIP日常任务 和 taskCode(任务状态)
         '''
         url = "https://tc.vip.iqiyi.com/taskCenter/task/queryUserTask"
         params = {
@@ -109,7 +113,7 @@ class IQY:
     def draw(self, type):
         '''
         查询抽奖次数(必),抽奖
-        :param type: 类型。0查询；1抽奖
+        :param type: 类型。0查询次数；1抽奖
         :return: {status, msg, chance}
         '''
         url = "https://iface2.iqiyi.com/aggregate/3.0/lottery_activity"
@@ -129,7 +133,8 @@ class IQY:
             "secure_p": "GPhone",
             "req_sn": round(time.time()*1000)
         }
-        if type == 1: # 抽奖不需要lottery_chance参数
+        # 抽奖删除lottery_chance参数
+        if type == 1: 
             del params["lottery_chance"]
         res = requests.get(url, params=params)
         print("（iqy）抽奖信息", res.json())
@@ -138,12 +143,11 @@ class IQY:
             msg = res.json().get("awardName")
             return {"status": True, "msg": msg, "chance": chance}
         else:
-            chance = 3
             try:
                 msg = res.json().get("kv", {}).get("msg")
             except:
                 msg = res.json()["errorReason"]
-            return {"status": False, "msg": msg, "chance": chance}
+            return {"status": False, "msg": msg, "chance": 0}
 
 
 
@@ -155,16 +159,20 @@ if __name__ == '__main__':
     # 签到
     obj = IQY(P00001, P00003)
     msg1 = obj.sign()
+
     # 抽奖
-    msg2 = ""
     chance = obj.draw(0)["chance"]
-    for i in range(chance):
-        ret = obj.draw(1)
-        if ret["status"]:
-            msg2 += ret["msg"] + ";"
+    if chance:
+        msg2 = ""
+        for i in range(chance):
+            ret = obj.draw(1)
+            msg2 += ret["msg"]+";" if ret["status"] else ""
+    else:
+        msg2 = "抽奖机会不足"
+
     # 日常任务
     obj.queryTask().joinTask()
     msg3 = obj.queryTask().getReward()
 
-    msg = f"{msg1}\n抽奖：{msg2}\n任务：{msg3}"
-    print("【爱奇艺签到】", msg)
+    msg = f"【爱奇艺签到】\n签到：{msg1}\n抽奖：{msg2}\n任务：{msg3}"
+    print(msg)
