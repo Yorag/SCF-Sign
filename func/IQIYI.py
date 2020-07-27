@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+import time
 import requests
 
 
@@ -7,11 +8,14 @@ class IQY:
     爱奇艺签到、抽奖
     *奖励：签7天奖1天，14天奖2天，28天奖7天；日常任务；随机成长值
     '''
-    def __init__(self, P00001):
+    def __init__(self, P00001, psp_uid):
         '''
-        :param P00001: cookies中必要参数
+        :param P00001: 签到，任务，抽奖必要参数
+        :param psp_uid: 抽奖必要参数
         '''
         self.P00001 = P00001
+        self.psp_uid = psp_uid
+
         self.taskList = []
         self.growthTask = 0
 
@@ -36,70 +40,6 @@ class IQY:
             print("（iqy）签到错误", res.content.decode())
             msg = f'错误代码：{res.json()["code"]}\n信息：{res.json()["msg"]}'
         return msg
-
-
-    def draw(self):
-        '''
-        抽奖
-        '''
-        qyid = "f185cea041dfcbec15c66b7155041ba91100"
-        psp_cki = "3a8I8x8XhLXRNA916m1SAJLBh2MJam2hz8Akg1i2GQ3KdPnpf5gYOOm2EXCm2u3QPwT4WLbf"
-
-        url = "https://cards.iqiyi.com/views_category/3.0/vip_home"
-        params1 = {
-            "page_st": "suggest",
-            "layout_v": 69.106,
-            "app_k": "3179f25bc69e815ad828327ccf10c539",
-            "dev_os": "5.1.1",
-            "secure_p": "GPhone",
-            "secure_v": 1,
-            "psp_status": 3,
-            "net_sts": 1,
-            "lang": "zh_CN",
-            "qyid": qyid,
-            "app_v": "11.6.5",
-            "dev_ua": "TAS-AN00",
-            "platform_id": 10,
-            "req_sn": 1594637758659
-        }
-        headers = {
-            "t": "490079643",
-            "sign": "087cfe72a655408f11a9083de5d869bb"
-        }
-        res = requests.get(url, params=params1, headers=headers)
-        # 提取抽奖url前缀
-        for i, card in enumerate(res.json()["cards"]):
-            for j, block in enumerate(card["blocks"]):
-                url = block.get("actions", {}).get("click_event", {}).get("data", {}).get("url")
-                if url and url.startswith("http://iface2.iqiyi.com/"):
-                    # 抽奖
-                    params2 = {
-                        "app_k": "3179f25bc69e815ad828327ccf10c549",
-                        "app_v": "11.6.5",
-                        "platform_id": 10,
-                        "dev_os": "5.1.1",
-                        "dev_ua": "TAS-AN00",
-                        "net_sts": 1,
-                        "qyid": qyid,
-                        "psp_uid": 1626879399,
-                        "psp_cki": psp_cki,
-                        "psp_status": 3,
-                        "secure_v": 1,
-                        "secure_p": "GPhone",
-                        "req_sn": 1594640282763
-                    }
-                    res = requests.get(url, params=dict(params1, **params2))
-                    break
-        print("（iqy）抽奖信息", res.json())
-        if not res.json().get('code'):
-            msg = res.json()["awardName"]
-            return {"status": True, "msg": msg}
-        else:
-            try:
-                msg = res.json()["kv"]["msg"]
-            except:
-                msg = res.json()["errorReason"]
-            return {"status": False, "msg": msg}
 
 
     def queryTask(self):
@@ -165,15 +105,61 @@ class IQY:
         return msg
 
 
+
+    def draw(self, type):
+        '''
+        查询抽奖次数(必),抽奖
+        :param type: 类型。0查询；1抽奖
+        :return: {status, msg, chance}
+        '''
+        url = "https://iface2.iqiyi.com/aggregate/3.0/lottery_activity"
+        params = {
+            "lottery_chance": 1,
+            "app_k": "3179f25bc69e815ad828327ccf10c539",
+            "app_v": "11.6.5",
+            "platform_id": 10,
+            "dev_os": "5.1.1",
+            "dev_ua": "TAS-AN00",
+            "net_sts": 1,
+            "qyid": "f185cea041dfcbec15c66b7155041ba91100",
+            "psp_uid": self.psp_uid,
+            "psp_cki": self.P00001,
+            "psp_status": 3,
+            "secure_v": 1,
+            "secure_p": "GPhone",
+            "req_sn": round(time.time()*1000)
+        }
+        if type == 1: # 抽奖不需要lottery_chance参数
+            del params["lottery_chance"]
+        res = requests.get(url, params=params)
+        print("（iqy）抽奖信息", res.json())
+        if not res.json().get('code'):
+            chance = int(res.json().get('daysurpluschance'))
+            msg = res.json().get("awardName")
+            return {"status": True, "msg": msg, "chance": chance}
+        else:
+            chance = 3
+            try:
+                msg = res.json().get("kv", {}).get("msg")
+            except:
+                msg = res.json()["errorReason"]
+            return {"status": False, "msg": msg, "chance": chance}
+
+
+
+
 if __name__ == '__main__':
     P00001 = ""
+    P00003 = ""
+
     # 签到
-    obj = IQY(P00001)
+    obj = IQY(P00001, P00003)
     msg1 = obj.sign()
     # 抽奖
     msg2 = ""
-    for i in range(3):
-        ret = obj.draw()
+    chance = obj.draw(0)["chance"]
+    for i in range(chance):
+        ret = obj.draw(1)
         if ret["status"]:
             msg2 += ret["msg"] + ";"
     # 日常任务
