@@ -37,7 +37,7 @@ class IQY:
                 continueSignDaysSum = res.json()["data"]["signInfo"]["data"]["continueSignDaysSum"]
                 vipStatus = res.json()["data"]["userInfo"]["vipStatus"]
                 rewardDay = 7 if continueSignDaysSum<=7 else (14 if continueSignDaysSum<=14 else 28)
-                msg = f"VIP等级：{vipStatus}\n签到：+{growth}成长值\n已签到：{continueSignDaysSum}天/{rewardDay}天"
+                msg = f"+{growth}成长值\n已签到：{continueSignDaysSum}天/{rewardDay}天"
             except:
                 msg = res.json()["data"]["signInfo"]["msg"]
         else:
