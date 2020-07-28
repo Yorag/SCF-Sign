@@ -117,7 +117,7 @@ def main_handler(event, context):
     msg_tv = ""
     for d in data["TV"]:
         params = dict([p.split("=") for p in d["params"].split("&")])
-        cookies = dict([c.split("=") for c in d["cookies"].split("; ")])
+        cookies = dict([c.split("=", 1) for c in d["cookies"].split("; ")])
         msg_tv += tv(cookies, params)
 
     # 芒果tv
@@ -133,19 +133,19 @@ def main_handler(event, context):
     # 吾爱论坛
     msg_52 = ""
     for d in data["52PJ"]:
-        cookies = dict([c.split("=") for c in d["cookies"].split("; ")])
+        cookies = dict([c.split("=", 1) for c in d["cookies"].split("; ")])
         msg_52 += pj(cookies)
 
     # 乐易论坛
     msg_ly = ""
     for d in data["LEY"]:
-        cookies = dict([c.split("=") for c in d["cookies"].split("; ")])
+        cookies = dict([c.split("=", 1) for c in d["cookies"].split("; ")])
         msg_ly += ly(cookies)
 
     # 精易论坛
     msg_jy = ""
     for d in data["BBS"]:
-        cookies = dict([c.split("=") for c in d["cookies"].split("; ")])
+        cookies = dict([c.split("=", 1) for c in d["cookies"].split("; ")])
         msg_jy += jy(cookies)
 
     # 网易云音乐
