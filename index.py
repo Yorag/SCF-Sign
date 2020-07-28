@@ -46,7 +46,7 @@ def iqy(P00001, P00003):
     obj.queryTask().joinTask()
     msg3 = obj.queryTask().getReward()
 
-    msg = f"【爱奇艺签到】\n签到：{msg1}\n抽奖：{msg2}\n任务：{msg3}"
+    msg = f"签到：{msg1}\n抽奖：{msg2}\n任务：{msg3}"
     return msg
 
 
