@@ -61,7 +61,7 @@ def tv(cookies, params):
 def mg(uuid, ticket):
     '''芒果tv引用'''
     obj = MGTV(uuid, ticket)
-    msg = f"签到(1)：{obj.sign_app()}\n签到(2)：{obj.sign_web()}\n任务：{obj.task()}"
+    msg = f"签到：{obj.sign_app()}"
     return msg
 
 
