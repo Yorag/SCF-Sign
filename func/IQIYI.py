@@ -34,9 +34,9 @@ class IQY:
         if res.json()["code"] == "A00000":
             try:
                 growth = res.json()["data"]["signInfo"]["data"]["rewardMap"]["growth"]
-                continueSignDaysSum = res.json()["data"]["signInfo"]["data"]["continueSignDaysSum"]
-                rewardDay = 7 if continueSignDaysSum<=7 else (14 if continueSignDaysSum<=14 else 28)
-                msg = f"+{growth}成长值\n已签到：{continueSignDaysSum}天/{rewardDay}天"
+                continueSignDaysAfterMod = res.json()["data"]["signInfo"]["data"]["continueSignDaysAfterMod"]
+                continueSignThreshold = res.json()["data"]["signInfo"]["data"]["continueSignThreshold"]
+                msg = f"+{growth}成长值\n已签到：{continueSignDaysAfterMod}天/{continueSignThreshold}天"
             except:
                 msg = res.json()["data"]["signInfo"]["msg"]
         else:
