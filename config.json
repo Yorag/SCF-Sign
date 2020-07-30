@@ -9,7 +9,7 @@
     "TV": [
         {
             "params": "vappid=11059694&vsecret={}&type=qq&g_actk={}",
-            "cookies": "vqq_access_token={}; vqq_openid={};  main_login=qq; vqq_vuserid={}; vqq_vusession={}"
+            "cookies": "video_platform=2; vqq_access_token={}; vqq_openid={};  main_login=qq; vqq_vuserid={}; vqq_vusession={}"
         }
     ],
     "MGO": [
