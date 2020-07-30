@@ -1,4 +1,5 @@
 import re
+import time
 import requests
 
 
@@ -42,16 +43,16 @@ class TV:
             "isDarkMode": 0,
             "uiType": "REGULAR"
         }
-        res = self.s.get(url, params=params)
+        res = requests.get(url, params=params, cookies=self.s.cookies.get_dict())
         match = re.search(r'isMultiple" />\s+(.*?)\s+<', res.text)
         if match:
             value = match.group(1)
             msg = f"成长值{value}"
         elif res.content.decode() == "Unauthorized":
-            msg = "身份过期，替换cookies中vqq_vusession"
+            msg = "身份过期"
         else:
             msg = "签到失败(可能已签到)"
-        print("（tx）一次签到", res.text)
+            # print("（tx）一次签到", res.text)
         return msg
 
 
@@ -83,6 +84,7 @@ class TV:
 
 if __name__ == '__main__':
     cookies = {
+        'video_platform': '2',
         'vqq_access_token': '',
         'vqq_openid': '',
         'main_login': 'qq',
@@ -90,7 +92,7 @@ if __name__ == '__main__':
         'vqq_vusession': ''
     }
     params = {
-        'vappid': '', 
+        'vappid': '11059694', 
         'vsecret': '', 
         'type': 'qq', 
         'g_actk': ''
