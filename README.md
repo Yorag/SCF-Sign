@@ -26,7 +26,9 @@ PS：若本机环境运行，将index.py的`def main_handler(event, context):`�
 ### 三、配置config.json
 * 1.Skey为[Qmsg酱](https://qmsg.zendee.cn/login)密钥
 * 2.[爱奇艺（IQIYI）](https://iqiyi.com/)官网，加载主页面，开发者工具搜索获取**P00001**，**P00003**参数
-* 3.[腾讯视频（TV）](https://v.qq.com/)官网，浏览器F12开发者工具并刷新，找到请求**access.video.qq.com/user/auth_refresh**，params为?后字符串，cookies为请求cookies（可仅提取关键参数）
+![爱奇艺 参数抓取](https://i.loli.net/2020/07/30/WIEJzHQYTAs7jcR.jpg)
+* 3.[腾讯视频（TV）](https://v.qq.com/)官网，浏览器F12开发者工具并刷新，找到请求**access.video.qq.com/user/auth_refresh**，params为?后字符串，cookies为返回cookies（可仅提取关键参数）
+![腾讯视频 参数抓取](https://i.loli.net/2020/07/28/eN8yE2cCMa4XDPl.png)
 * 4.[芒果TV（MGO）](https://www.mgtv.com/)官网，抓包获取**uuid**，**ticket**参数进行替换
 * 5.[网易云音乐（WYY）](https://music.163.com/)，填入账号、密码  
   *注：官方接口登录*
