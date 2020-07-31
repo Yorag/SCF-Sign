@@ -43,7 +43,7 @@ class ECloud:
             if res.json().get("errorCode"):
                 msg += f"抽奖(1)：{res.json()['errorCode']}\n"
             else:
-                netdiskBonus = re.search(r"\d+", res.json()['description']).group()
+                netdiskBonus = re.search(r"\d+", res.json()['prizeName']).group()
                 msg += f"抽奖(1)：+{netdiskBonus}M空间\n"
             #第二次抽奖
             res = self.s.get(url[1], headers=headers)
@@ -51,7 +51,7 @@ class ECloud:
             if res.json().get("errorCode"):
                 msg += f"抽奖(2)：{res.json()['errorCode']}"
             else:
-                netdiskBonus = re.search(r"\d+", res.json()['description']).group()
+                netdiskBonus = re.search(r"\d+", res.json()['prizeName']).group()
                 msg += f"抽奖(2)：+{netdiskBonus}M空间"
         else:
             msg = ret["msg"]
