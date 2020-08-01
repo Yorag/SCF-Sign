@@ -97,7 +97,10 @@ def ly(cookies):
 def jy(cookies):
     '''精易论坛引用'''
     obj = JingYi(cookies)
-    msg = obj.sign()
+    if not obj.formhash:
+        msg = obj.sign()
+    else:
+        msg = "cookie过期"
     return msg
 
 
