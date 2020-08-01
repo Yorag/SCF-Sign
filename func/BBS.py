@@ -41,8 +41,12 @@ class JingYi:
         '''
         params = {"id": "dsu_paulsign:sign"}
         res = self._requests("GET", params=params)
-        self.fromhash = re.search("formhash=(.*?)&", res.text).group(1)
-        print(f"{'-'*10}精易formhash值：{self.fromhash}{'-'*10}")
+        try:
+            self.fromhash = re.search("formhash=(.*?)&", res.text).group(1)
+            print(f"{'-'*10}精易formhash值：{self.fromhash}{'-'*10}")
+        except:
+            print("cookie过期")
+            pass
 
 
     def sign(self):
@@ -84,5 +88,9 @@ if __name__ == '__main__':
     }
 
     obj = JingYi(cookies)
-    msg = obj.sign()
+    if not obj.formhash:
+        msg = obj.sign()
+    else:
+        msg = "cookie过期"
     print("【精易论坛】", msg)
+
