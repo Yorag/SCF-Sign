@@ -69,7 +69,7 @@ class JingYi:
         print(f"{'-'*10}精易签到json：{res.json()}{'-'*10}")
         if res.json()["status"] == 1:
             # 签到成功
-            content = f"签到：+{res.json()['data']['credit']}精币\n已签到：{res.json()['data']['mdays']}天"
+            content = f"签到：+{res.json()['data']['credit']}精币"
         elif res.json()["status"] == 0:
             # 已经签到过了
             content = res.json()["msg"]
