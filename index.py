@@ -69,7 +69,7 @@ def wyy(uin, pwd):
     '''网易云音乐引用'''
     obj = WangYiYun()
     if obj.login(uin, pwd):
-        msg = f'用户：{obj.nickname}\n签到(1)：{obj.sign(0)}\n签到(2)：{obj.sign(0)}\n打卡：{obj.clock()}'
+        msg = f'用户：{obj.nickname}\n签到(1)：{obj.sign(0)}\n签到(2)：{obj.sign(1)}\n打卡：{obj.clock()}'
     else:
         msg = "登录失败，密码错误"
     return msg
