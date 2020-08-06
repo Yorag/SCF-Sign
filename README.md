@@ -19,7 +19,7 @@
 ### 二、使用：
 * 1.修改添加config.json相关参数
 * 2.打包成zip文件，上传至scf云函数  
-  *注：超时时间设置为900*
+  *注：语言python3.6，超时时间设置为900*
 * 3.添加定时触发器  
 PS：若本机环境运行，将index.py的`def main_handler(event, context):`一行改为`if __name__ == '__main__':`，运行index.py
 
