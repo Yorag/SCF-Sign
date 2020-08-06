@@ -108,7 +108,7 @@ def jy(cookies):
 
 def main_handler(event, context):
     with open("config.json", "r", encoding="utf-8") as f:
-        data = json.loads(f.read())
+        data = json.load(f)
 
     key = data["SKey"]
     # 爱奇艺
