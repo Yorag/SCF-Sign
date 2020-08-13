@@ -43,22 +43,16 @@ class ECloud:
             if res.json().get("errorCode"):
                 msg += f"抽奖(1)：{res.json()['errorCode']}\n"
             else:
-                try:
-                    netdiskBonus = re.search(r"\d+", res.json()['prizeName']).group()
-                    msg += f"抽奖(1)：+{netdiskBonus}M空间\n"
-                except:
-                    msg += f"抽奖(1)：{res.json()['prizeName']}"
+                netdiskBonus = re.search(r"\d+", res.json()['prizeName']).group()
+                msg += f"抽奖(1)：+{netdiskBonus}M空间\n"
             #第二次抽奖
             res = self.s.get(url[1], headers=headers)
             print("（ecloud）第二次抽奖", res.text)
             if res.json().get("errorCode"):
                 msg += f"抽奖(2)：{res.json()['errorCode']}"
             else:
-                try:
-                    netdiskBonus = re.search(r"\d+", res.json()['prizeName']).group()
-                    msg += f"抽奖(2)：+{netdiskBonus}M空间\n"
-                except:
-                    msg += f"抽奖(2)：{res.json()['prizeName']}"
+                netdiskBonus = re.search(r"\d+", res.json()['prizeName']).group()
+                msg += f"抽奖(2)：+{netdiskBonus}M空间"
         else:
             msg = ret["msg"]
         return msg
@@ -142,6 +136,8 @@ class ECloud:
         pubkey = rsa.PublicKey.load_pkcs1_openssl_pem(rsa_key.encode())
         result = self.b64tohex((base64.b64encode(rsa.encrypt(f'{string}'.encode(), pubkey))).decode())
         return result
+
+
 
 
 
