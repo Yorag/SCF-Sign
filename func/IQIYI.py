@@ -36,7 +36,7 @@ class IQY:
                 growth = res.json()["data"]["signInfo"]["data"]["rewardMap"]["growth"]
                 continueSignDaysAfterMod = res.json()["data"]["signInfo"]["data"]["continueSignDaysAfterMod"]
                 continueSignThreshold = res.json()["data"]["signInfo"]["data"]["continueSignThreshold"]
-                msg = f"+{growth}成长值\n已签到：{continueSignDaysAfterMod}天/{continueSignThreshold}天"
+                msg = f"+{growth}成长值\n已签到：{continueSignDaysAfterMod+1}天/{continueSignThreshold}天"
             except:
                 msg = res.json()["data"]["signInfo"]["msg"]
         else:
@@ -54,7 +54,7 @@ class IQY:
             "P00001": self.P00001
         }
         res = requests.get(url, params=params)
-        if res.json()["code"] == "A00000":
+        if res.json().get("code") == "A00000":
             for item in res.json()["data"]["tasks"]["daily"]:
                 self.taskList.append({
                     "name": item["name"],
@@ -166,6 +166,7 @@ if __name__ == '__main__':
         for i in range(chance):
             ret = obj.draw(1)
             msg2 += ret["msg"]+";" if ret["status"] else ""
+            time.sleep(0.1)
     else:
         msg2 = "抽奖机会不足"
 
