@@ -47,7 +47,7 @@ class ECloud:
                     netdiskBonus = re.search(r"\d+", res.json()['prizeName']).group()
                     msg += f"抽奖(1)：+{netdiskBonus}M空间\n"
                 except:
-                    msg += f"抽奖(1)：{res.json()['prizeName']}"
+                    msg += f"抽奖(1)：{res.json()['prizeName']}\n"
             #第二次抽奖
             res = self.s.get(url[1], headers=headers)
             print("（ecloud）第二次抽奖", res.text)
@@ -56,7 +56,7 @@ class ECloud:
             else:
                 try:
                     netdiskBonus = re.search(r"\d+", res.json()['prizeName']).group()
-                    msg += f"抽奖(2)：+{netdiskBonus}M空间\n"
+                    msg += f"抽奖(2)：+{netdiskBonus}M空间"
                 except:
                     msg += f"抽奖(2)：{res.json()['prizeName']}"
         else:
