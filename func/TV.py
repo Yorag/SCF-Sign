@@ -43,6 +43,9 @@ class TV:
             "isDarkMode": 0,
             "uiType": "REGULAR"
         }
+        # headers = {
+        #     "User-Agent": "Mozilla/5.0 (Linux; Android 10; MI 9 SE Build/QKQ1.190828.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36 QQLiveBrowser/8.2.35.21442"
+        # }
         res = requests.get(url, params=params, cookies=self.s.cookies.get_dict())
         match = re.search(r'isMultiple" />\s+(.*?)\s+<', res.text)
         if match:
@@ -50,8 +53,11 @@ class TV:
             msg = f"成长值{value}"
         elif res.content.decode() == "Unauthorized":
             msg = "身份过期"
+        elif "签到失败" in res.content.decode():
+            msg = "签到失败，检查参数设置"
         else:
-            msg = "签到失败(可能已签到)"
+            msg = "签到失败，自行登录网址签到http://v.qq.com/x/bu/mobile_checkin"
+            print(res.request.headers)
             # print("（tx）一次签到", res.text)
         return msg
 
@@ -84,18 +90,19 @@ class TV:
 
 if __name__ == '__main__':
     cookies = {
-        'video_platform': '2',
-        'vqq_access_token': '',
-        'vqq_openid': '',
+        'video_platform': "2",
+        'vqq_access_token': '4C543E4B5BE7954C92FA6FC3588EBE82',
+        'vqq_openid': 'E8B6F81FD949AF335BFA1657477B52DF',
         'main_login': 'qq',
-        'vqq_vuserid': '',
-        'vqq_vusession': ''
+        'vqq_vuserid': '719930041',
+        'vqq_vusession': 'vlFyjjUZ5BwYEMQ9kqUM7w..'
+        # 'vuserid': '719930041'
     }
     params = {
         'vappid': '11059694', 
-        'vsecret': '', 
+        'vsecret': 'fdf61a6be0aad57132bc5cdf78ac30145b6cd2c1470b0cfe', 
         'type': 'qq', 
-        'g_actk': ''
+        'g_actk': '150450282'
     }
     obj = TV(cookies, params)
     obj.auth_refresh()
