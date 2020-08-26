@@ -42,8 +42,8 @@ class JingYi:
         params = {"id": "dsu_paulsign:sign"}
         res = self._requests("GET", params=params)
         try:
-            self.fromhash = re.search("formhash=(.*?)&", res.text).group(1)
-            print(f"{'-'*10}精易formhash值：{self.fromhash}{'-'*10}")
+            self.formhash = re.search("formhash=(.*?)&", res.text).group(1)
+            print(f"{'-'*10}精易formhash值：{self.formhash}{'-'*10}")
         except:
             print("cookie过期")
             pass
@@ -59,7 +59,7 @@ class JingYi:
             "infloat": 1
         }
         data = {
-            "formhash": self.fromhash,
+            "formhash": self.formhash,
             "submit": 1,
             "targerurl": "",
             "todaysay": "",

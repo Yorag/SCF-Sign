@@ -1,11 +1,12 @@
 # -*- coding: utf8 -*-
 import json
+import time
 import requests
 
 from func.IQIYI import IQY
 from func.TV import TV
 from func.MGTV import MGTV
-from func.WangYiYun import WangYiYun
+from func.NetEase import WangYiYun
 from func.ECloud import ECloud
 from func.WuAiPJ import WuAiPJ
 from func.Ley import Ley
@@ -14,16 +15,16 @@ from func.BBS import JingYi
 
 def sendMsg(key, content):
     '''
-    通过Qmsg酱向QQ发送信息
-    :param key: Qmsg酱密钥
+    通过酷推(CoolPush)向QQ发送信息
+    :param key: 酷推密钥
     :param content: 发送内容
     '''
-    url = f"https://qmsg.zendee.cn:443/send/{key}"
+    url = f"https://push.xuthus.cc/send/{key}"
     params = {
-        "msg": content
+        "c": content
     }
     res = requests.get(url, params=params)
-    print(res.json())
+    print("qq消息提醒", res.content.decode())
 
 
 def iqy(P00001, P00003):
@@ -39,6 +40,7 @@ def iqy(P00001, P00003):
         for i in range(chance):
             ret = obj.draw(1)
             msg2 += ret["msg"]+";" if ret["status"] else ""
+            time.sleep(0.1)
     else:
         msg2 = "抽奖机会不足"
 
@@ -157,7 +159,8 @@ def main_handler(event, context):
         msg_wyy += wyy(d["uin"], d["pwd"])
 
     # 发送信息
-    msg = f"【爱奇艺】\n{msg_iqy}\n\
+    msg = f"【{time.strftime('%m-%d', time.localtime())}】\n\
+【爱奇艺】\n{msg_iqy}\n\
 【腾讯视频】\n{msg_tv}\n\
 【芒果TV】\n{msg_mg}\n\
 【天翼云盘】\n{msg_ec}\n\

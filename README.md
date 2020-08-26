@@ -14,7 +14,7 @@
   h.精易论坛：随机精币  
  
 * 2.支持多账户签到
-* 3.支持添加QMsg酱推送
+* 3.支持添加酷推(CoolPush)QQ推送
 
 ### 二、使用：
 * 1.修改添加config.json相关参数
@@ -24,7 +24,7 @@
 PS：若本机环境运行，将index.py的`def main_handler(event, context):`一行改为`if __name__ == '__main__':`，运行index.py
 
 ### 三、配置config.json
-* 1.Skey为[Qmsg酱](https://qmsg.zendee.cn/login)密钥
+* 1.Skey为[酷推](https://cp.xuthus.cc/)密钥。登录网站自行绑定QQ
 * 2.[爱奇艺（IQIYI）](https://iqiyi.com/)官网，加载主页面，开发者工具搜索获取**P00001**，**P00003**参数
 ![爱奇艺 参数抓取](https://s1.ax1x.com/2020/08/10/aHuqns.jpg)
 * 3.[腾讯视频（TV）](https://v.qq.com/)官网，浏览器F12开发者工具并刷新，找到请求**access.video.qq.com/user/auth_refresh**，params为?后字符串，cookies为返回cookies（可仅提取关键参数）
