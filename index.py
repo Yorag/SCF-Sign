@@ -25,7 +25,7 @@ def sendMsg(key, content):
     }
     res = requests.get(url, params=params)
     print("qq消息提醒", res.content.decode())
-
+ 
 
 def iqy(P00001, P00003):
     '''爱奇艺引用'''
