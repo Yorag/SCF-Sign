@@ -46,6 +46,7 @@ class JingYi:
             print(f"{'-'*10}精易formhash值：{self.formhash}{'-'*10}")
         except:
             print("cookie过期")
+            # print("res.content.decode()")
             pass
 
 
@@ -61,20 +62,21 @@ class JingYi:
         data = {
             "formhash": self.formhash,
             "submit": 1,
-            "targerurl": "",
-            "todaysay": "",
             "qdxq": "kx"
         }
         res = self._requests("POST", params=params, data=data)
-        print(f"{'-'*10}精易签到json：{res.json()}{'-'*10}")
-        if res.json()["status"] == 1:
-            # 签到成功
-            content = f"签到：+{res.json()['data']['credit']}精币"
-        elif res.json()["status"] == 0:
-            # 已经签到过了
-            content = res.json()["msg"]
-        else:
-            content = "cookies过期"
+        print(f"{'-'*10}精易签到json：{res.content.decode('gbk')}{'-'*10}")
+        try:
+            if res.json()["status"] == 1:
+                # 签到成功
+                content = f"签到：+{res.json()['data']['credit']}精币"
+            elif res.json()["status"] == 0:
+                # 已经签到过了
+                content = res.json()["msg"]
+            else:
+                content = "cookies过期"
+        except:
+            content = "参数设置错误"
         return content
 
 
@@ -88,7 +90,7 @@ if __name__ == '__main__':
     }
 
     obj = JingYi(cookies)
-    if not obj.formhash:
+    if obj.formhash:
         msg = obj.sign()
     else:
         msg = "cookie过期"
