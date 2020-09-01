@@ -25,7 +25,7 @@ def sendMsg(key, content):
     }
     res = requests.get(url, params=params)
     print("qq消息提醒", res.content.decode())
- 
+
 
 def iqy(P00001, P00003):
     '''爱奇艺引用'''
@@ -67,13 +67,14 @@ def mg(uuid, ticket):
     return msg
 
 
-def wyy(uin, pwd):
+def wyy(pwd, phone=None, email=None):
     '''网易云音乐引用'''
     obj = WangYiYun()
-    if obj.login(uin, pwd):
-        msg = f'用户：{obj.nickname}\n签到(1)：{obj.sign(0)}\n签到(2)：{obj.sign(1)}\n打卡：{obj.clock()}'
+    if obj.login(pwd, phone, email):
+        msg = f'用户：{obj.nickname}\n签到(1)：{obj.sign(0)}\n签到(2)：{obj.sign(1)}\n打卡：{obj.clock()}\n信息：{obj.detail()}'
     else:
         msg = "登录失败，密码错误"
+    print("【网易云签到】", msg)
     return msg
 
 
@@ -156,7 +157,7 @@ def main_handler(event, context):
     # 网易云音乐
     msg_wyy = ""
     for d in data["WYY"]:
-        msg_wyy += wyy(d["uin"], d["pwd"])
+        msg_wyy += wyy(d["pwd"], d["phone"], d["email"])
 
     # 发送信息
     msg = f"【{time.strftime('%m-%d', time.localtime())}】\n\

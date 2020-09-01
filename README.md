@@ -31,7 +31,7 @@ PS：若本机环境运行，将index.py的`def main_handler(event, context):`�
 ![腾讯视频 参数抓取](https://s1.ax1x.com/2020/08/10/aHKXKH.jpg)
 * 4.[芒果TV（MGO）](https://www.mgtv.com/)官网，抓包获取**uuid**，**ticket**是cookie中的HDCN横线前的字符串进行替换
 ![芒果TV 参数抓取](https://s1.ax1x.com/2020/08/15/dibifU.png)
-* 5.[网易云音乐（WYY）](https://music.163.com/)，填入账号、密码  
+* 5.[网易云音乐（WYY）](https://music.163.com/)，填入账号、密码。手机账号和邮箱账号二选一，另一个留空  
   *注：官方接口登录*
 * 6.[天翼云盘（ECLOUD）](https://cloud.189.cn/)，填入账号、密码  
   *注：官方接口登录*

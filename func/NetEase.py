@@ -43,12 +43,15 @@ class WangYiYun():
         self.i = "".join([a[random.randint(0, 61)] for s in range(16)])  # 随机生成长度为16的字符串
 
         self.urls = {
-            "LOGIN": "https://music.163.com/weapi/w/login/cellphone",
+            "LOGINBYPHONE": "https://music.163.com/weapi/login/cellphone",
+            "LOGINBYEMAIL": "https://music.163.com/weapi/login",
             "SIGN": "https://music.163.com/weapi/point/dailyTask",
             "DAKA": "http://music.163.com/weapi/feedback/weblog",
+            "DETAIL": "https://music.163.com/weapi/v1/user/detail/{}",
             "RECOMMEND": "https://music.163.com/weapi/v1/discovery/recommend/resource",
             "GETSONG": "https://music.163.com/weapi/v3/playlist/detail"
         }
+        self.grade = [10, 40, 70, 130, 200, 400, 1000, 3000, 8000, 20000]
         self.s = requests.session()
         self.nickname = ""
 
@@ -70,23 +73,34 @@ class WangYiYun():
         return res
 
 
-    def login(self, cell, pwd):
+    def login(self, pwd, phone=None, email=None):
         """
-        登录网易云
-        :param cell: 网易云账号
+        登录网易云，邮箱手机账号二选一
         :param pwd: 网易云密码
+        :param email: 网易云邮箱账号
+        :param phone: 网易云手机账号
         :return: 判断登录是否成功
         """
-        data = {
-            "phone": cell,
-            "countrycode": "86",
-            "password": hashlib.md5(pwd.encode()).hexdigest(),
-            "rememberLogin": "true"
-        }
-        res = self._requests(self.urls["LOGIN"], data=data)
+        if phone:
+            url = self.urls["LOGINBYPHONE"]
+            data = {
+                "phone": phone,
+                "countrycode": "86",
+                "password": hashlib.md5(pwd.encode()).hexdigest(),
+                "rememberLogin": "false"
+            }
+        else:
+            url = self.urls["LOGINBYEMAIL"]
+            data = {
+                "username": email,
+                "password": hashlib.md5(pwd.encode()).hexdigest(),
+                "rememberLogin": "false"
+            }
+        res = self._requests(url, data=data)
         print("（wyy）登录", res.json())
         if res.json()["code"] == 200:
             self.nickname = res.json()["profile"]["nickname"]
+            self.uid = res.json()["profile"]["userId"]
             return True
         else:
             return False
@@ -136,7 +150,7 @@ class WangYiYun():
                         "wifi": 0
                     }
                 })
-                if len(songs) >= 310:
+                if len(songs) >= 510:
                     flag = False
                     break
         data = {
@@ -150,6 +164,25 @@ class WangYiYun():
             msg = res.json()["message"]
         return msg
 
+
+    def detail(self):
+        """
+        查询个人信息
+        """
+        data = {}
+        res = self._requests(self.urls["DETAIL"].format(self.uid), data=data)
+        print("（wyy）详细信息", res.json())
+        if res.json()["code"] == 200:
+            for c in self.grade:
+                if res.json()['listenSongs'] < c:
+                    tip = f"还需听{c-res.json()['listenSongs']}首升级"
+                    break
+                else:
+                    tip = "恭喜你已经满级了"
+            msg = f"{res.json()['level']}级，{tip}"
+        else:
+            msg = res.json()["msg"]
+        return msg
 
 
 
@@ -187,12 +220,13 @@ class WangYiYun():
 
 
 if __name__ == '__main__':
-    cell = ""
+    email = ""
+    phone = ""
     pwd = ""
 
     obj = WangYiYun()
-    if obj.login(cell, pwd):
-        msg = f'用户：{obj.nickname}\n签到(1)：{obj.sign(0)}\n签到(2)：{obj.sign(1)}\n打卡：{obj.clock()}'
+    if obj.login(pwd, phone, email):
+        msg = f'用户：{obj.nickname}\n签到(1)：{obj.sign(0)}\n签到(2)：{obj.sign(1)}\n打卡：{obj.clock()}\n信息：{obj.detail()}'
     else:
         msg = "登录失败，密码错误"
     print("【网易云签到】", msg)
