@@ -39,3 +39,11 @@ PS：若本机环境运行，将index.py的`def main_handler(event, context):`�
 * 8.[乐易论坛（LEY）](https://www.leybc.com/)网站，抓取cookise中关键参数**2vlT_96d0_saltkey、2vlT_96d0_auth**
 * 9.[精易论坛（BBS）](https://bbs.125.la/)网站，抓取cookies中关键参数**lDlk_ecc9_saltkey、lDlk_ecc9_auth**
 * 注：多账户在对应项目列表下添加字典参数即可；若指定项目不签到，对应项目下留空列表
+
+### 四、文件说明：
+* index.py——索引文件，主文件
+* config.json——配置文件，自行添加修改
+* AES.js aes——编码js文件
+* execjs|PyExecJS-1.5.1.dist-info——文件夹，执行js文件模块
+* rsa|rsa-4.6.dist-info|pyasn1|pyasn1-0.4.8.dist-info——文件夹，rsa编码模块
+* func/BBS.py、func/ECloud.py、func/IQIYI.py、func/Ley.py、func/MGTV.py、func/NetEase.py、func/TV.py、func/WuAiPJ.py——分别为精易论坛、天翼云盘、爱奇艺、乐易论坛、芒果TV、网易云音乐、腾讯视频、吾爱破解论坛单个签到文件
