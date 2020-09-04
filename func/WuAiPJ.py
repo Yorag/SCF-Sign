@@ -29,7 +29,7 @@ class WuAiPJ:
         res = requests.get(url, params=params, cookies=self.cookies)
         res.encoding = "gbk"
         if "任务已完成" in res.text:
-            msg = '签到：2吾爱币'
+            msg = '签到：+2吾爱币'
         elif "本期您已申请过此任务" in res.text:
             msg = '签到过了'
         elif "需要先登录" in res.text:
