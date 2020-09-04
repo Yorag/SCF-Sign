@@ -42,7 +42,7 @@ PS：若本机环境运行，将index.py的`def main_handler(event, context):`�
 * 注：多账户在对应项目列表下添加字典参数即可；若指定项目不签到，对应项目下留空列表
 
 ### 四、样例
-![酷推消息推送](https://s1.ax1x.com/2020/09/04/wiLc2d.jpg){:height="20%" width="20%"}
+![酷推消息推送](https://s1.ax1x.com/2020/09/04/wiLc2d.jpg){:height="200px" width="75px"}
 
 ### 五、文件说明：
 * index.py——索引文件，主文件
