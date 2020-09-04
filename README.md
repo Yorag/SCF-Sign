@@ -1,8 +1,9 @@
 ## 集成签到
-集成签到，可加入[腾讯云SCF云函数](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)，也可修改部分代码直接运行  
+集成签到。集合`爱奇艺、腾讯视频、芒果TV、网易云音乐、天翼网盘、52破解论坛、精易论坛、乐易论坛`的签到  
+可加入[腾讯云SCF云函数](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)，也可修改部分代码直接运行  
 
 ### 一、功能：
-* 1.集成爱奇艺、腾讯视频、芒果tv、网易云音乐、天翼网盘、52破解论坛、精易论坛、乐易论坛的签到  
+* 1.集成爱奇艺、腾讯视频、芒果TV、网易云音乐、天翼网盘、52破解论坛、精易论坛、乐易论坛的签到  
 
 > a.爱奇艺：(签到、做任务VIP仅支持VIP)签7天奖1天，14天奖2天，28天奖7天；日常任务；随机成长值；抽奖
   b.腾讯视频：VIP签到两次获取成长值  
@@ -40,7 +41,10 @@ PS：若本机环境运行，将index.py的`def main_handler(event, context):`�
 * 9.[精易论坛（BBS）](https://bbs.125.la/)网站，抓取cookies中关键参数**lDlk_ecc9_saltkey、lDlk_ecc9_auth**
 * 注：多账户在对应项目列表下添加字典参数即可；若指定项目不签到，对应项目下留空列表
 
-### 四、文件说明：
+### 四、样例
+![酷推消息推送](https://s1.ax1x.com/2020/09/04/wiLc2d.jpg)
+
+### 五、文件说明：
 * index.py——索引文件，主文件
 * config.json——配置文件，自行添加修改
 * AES.js aes——编码js文件
