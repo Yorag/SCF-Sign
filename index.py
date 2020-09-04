@@ -160,7 +160,7 @@ def main_handler(event, context):
         msg_wyy += wyy(d["pwd"], d["phone"], d["email"])
 
     # 发送信息
-    msg = f"【{time.strftime('%m-%d', time.localtime())}】\n\
+    msg = f"【{time.strftime('%Y年%m月%d日签到结果', time.localtime())}】\n\
 【爱奇艺】\n{msg_iqy}\n\
 【腾讯视频】\n{msg_tv}\n\
 【芒果TV】\n{msg_mg}\n\
