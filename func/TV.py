@@ -53,10 +53,8 @@ class TV:
             msg = f"成长值{value}"
         elif res.content.decode() == "Unauthorized":
             msg = "身份过期"
-        elif "签到失败" in res.content.decode():
-            msg = "签到失败，检查参数设置"
         else:
-            msg = "签到失败，自行登录网址签到http://v.qq.com/x/bu/mobile_checkin"
+            msg = "签到失败，自行在腾讯视频APP种登录网址签到http://v.qq.com/x/bu/mobile_checkin"
             print(res.request.headers)
             # print("（tx）一次签到", res.text)
         return msg
