@@ -45,10 +45,10 @@ PS: 若本机环境运行，将index.py的`def main_handler(event, context):`一
 * 1.腾讯视频签到提示：`签到失败，自行在腾讯视频APP内登录网址签到`，表示需要自行在app中登入签到网址签到，第二天即可恢复自动签到
 * 2.爱奇艺连续签到赠送会员天数自动领取
 
-### 四、样例：
+### 五、样例：
 <img src="https://s1.ax1x.com/2020/09/04/wFSGes.md.jpg" width="20%" height="20%" alt="酷推消息推送"/>
 
-### 五、文件说明：
+### 六、文件说明：
 * index.py——索引文件，主文件
 * config.json——配置文件，自行添加修改
 * AES.js aes——编码js文件
