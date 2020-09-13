@@ -22,10 +22,7 @@
 * 2.打包成zip文件，上传至[scf云函数](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)  
   *注：语言python3.6，超时时间设置为900*
 * 3.添加定时触发器  
-注意点：
-> 1.若本机环境运行，将index.py的`def main_handler(event, context):`一行改为`if __name__ == '__main__':`，运行index.py
-  2.腾讯视频签到提示：`签到失败，自行在腾讯视频APP内登录网址签到`，表示需要自行在app中登入签到网址签到，第二天即可恢复自动签到
-
+PS: 若本机环境运行，将index.py的`def main_handler(event, context):`一行改为`if __name__ == '__main__':`，运行index.py
 
 ### 三、配置config.json
 * 1.Skey为[酷推](https://cp.xuthus.cc/)密钥。登录网站自行绑定QQ
@@ -44,7 +41,11 @@
 * 9.[精易论坛（BBS）](https://bbs.125.la/)网站，抓取cookies中关键参数**lDlk_ecc9_saltkey、lDlk_ecc9_auth**
 * 注：多账户在对应项目列表下添加字典参数即可；若指定项目不签到，对应项目下留空列表
 
-### 四、样例
+### 四、注意：
+* 1.腾讯视频签到提示：`签到失败，自行在腾讯视频APP内登录网址签到`，表示需要自行在app中登入签到网址签到，第二天即可恢复自动签到
+* 2.爱奇艺连续签到赠送会员天数自动领取
+
+### 四、样例：
 <img src="https://s1.ax1x.com/2020/09/04/wFSGes.md.jpg" width="20%" height="20%" alt="酷推消息推送"/>
 
 ### 五、文件说明：
