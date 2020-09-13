@@ -22,7 +22,10 @@
 * 2.打包成zip文件，上传至[scf云函数](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)  
   *注：语言python3.6，超时时间设置为900*
 * 3.添加定时触发器  
-PS：若本机环境运行，将index.py的`def main_handler(event, context):`一行改为`if __name__ == '__main__':`，运行index.py
+注意点：
+> 1.若本机环境运行，将index.py的`def main_handler(event, context):`一行改为`if __name__ == '__main__':`，运行index.py
+  2.腾讯视频签到提示：`签到失败，自行在腾讯视频APP内登录网址签到`，表示需要自行在app中登入签到网址签到，第二天即可恢复自动签到
+
 
 ### 三、配置config.json
 * 1.Skey为[酷推](https://cp.xuthus.cc/)密钥。登录网站自行绑定QQ

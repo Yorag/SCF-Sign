@@ -54,7 +54,7 @@ class TV:
         elif res.content.decode() == "Unauthorized":
             msg = "身份过期"
         else:
-            msg = "签到失败，自行在腾讯视频APP种登录网址签到http://v.qq.com/x/bu/mobile_checkin"
+            msg = "签到失败，自行在腾讯视频APP内登录网址签到http://v.qq.com/x/bu/mobile_checkin"
             print(res.request.headers)
             # print("（tx）一次签到", res.text)
         return msg
