@@ -52,6 +52,6 @@ PS: 若本机环境运行，将index.py的`def main_handler(event, context):`一
 * index.py——索引文件，主文件
 * config.json——配置文件，自行添加修改
 * AES.js aes——编码js文件
-* execjs|PyExecJS-1.5.1.dist-info——文件夹，执行js文件模块
-* rsa|rsa-4.6.dist-info|pyasn1|pyasn1-0.4.8.dist-info——文件夹，rsa编码模块
+* execjs | PyExecJS-1.5.1.dist-info——文件夹，执行js文件模块
+* rsa | rsa-4.6.dist-info | pyasn1| pyasn1-0.4.8.dist-info——文件夹，rsa编码模块
 * func/BBS.py、func/ECloud.py、func/IQIYI.py、func/Ley.py、func/MGTV.py、func/NetEase.py、func/TV.py、func/WuAiPJ.py——分别为精易论坛、天翼云盘、爱奇艺、乐易论坛、芒果TV、网易云音乐、腾讯视频、吾爱破解论坛单个签到文件
