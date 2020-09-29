@@ -168,7 +168,7 @@ if __name__ == '__main__':
             msg2 += ret["msg"]+";" if ret["status"] else ""
             time.sleep(0.1)
     else:
-        msg2 = "抽奖机会不足"
+        msg2 = "P00001值过期"
 
     # 日常任务
     obj.queryTask().joinTask()

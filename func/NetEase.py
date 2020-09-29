@@ -228,5 +228,5 @@ if __name__ == '__main__':
     if obj.login(pwd, phone, email):
         msg = f'用户：{obj.nickname}\n签到(1)：{obj.sign(0)}\n签到(2)：{obj.sign(1)}\n打卡：{obj.clock()}\n信息：{obj.detail()}'
     else:
-        msg = "登录失败，密码错误"
+        msg = "登录失败，请稍后再试"
     print("【网易云签到】", msg)

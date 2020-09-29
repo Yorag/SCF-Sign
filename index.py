@@ -73,7 +73,7 @@ def wyy(pwd, phone=None, email=None):
     if obj.login(pwd, phone, email):
         msg = f'用户：{obj.nickname}\n签到(1)：{obj.sign(0)}\n签到(2)：{obj.sign(1)}\n打卡：{obj.clock()}\n信息：{obj.detail()}'
     else:
-        msg = "登录失败，密码错误"
+        msg = "登录失败，请稍后再试"
     print("【网易云签到】", msg)
     return msg
 
@@ -159,15 +159,20 @@ def main_handler(event, context):
     for d in data["WYY"]:
         msg_wyy += wyy(d["pwd"], d["phone"], d["email"])
 
-    # 发送信息
-    msg = f"【{time.strftime('%Y年%m月%d日签到结果', time.localtime())}】\n\
-【爱奇艺】\n{msg_iqy}\n\
-【腾讯视频】\n{msg_tv}\n\
-【芒果TV】\n{msg_mg}\n\
-【天翼云盘】\n{msg_ec}\n\
-【吾爱破解】\n{msg_52}\n\
-【乐易】\n{msg_ly}\n\
-【精易】\n{msg_jy}\n\
-【网易云】\n{msg_wyy}"
-    sendMsg(key, msg)
+    # 整理发送信息
+    l = {
+        "【爱奇艺】": msg_iqy,
+        "【腾讯视频】": msg_tv,
+        "【芒果TV】": msg_mg,
+        "【天翼云盘】": msg_ec,
+        "【吾爱破解】": msg_52,
+        "【乐易】": msg_ly,
+        "【精易】": msg_jy,
+        "【网易云】": msg_wyy
+    }
+    msg = ""
+    for k,v in l.items():
+        if v:
+            msg += k + "\n" + v + "\n"
+    sendMsg(key, msg[:-1])
     return msg
